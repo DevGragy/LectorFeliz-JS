@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <script src="js/popper.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+        integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <link href="navbar-top-fixed.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/sweetalert2.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <title>Lector Feliz</title>
+
+</head>
+
+<body>
+
+    <header class="header">
+
+        <nav class="navbar navbar-expand-md navbar-dark bg-custom-2 fixed-top">
+            <a href="#" class="navbar-brand">
+                Lector Feliz
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item dropdown">
+                        <img src="img/carro1.png" class="nav-link dropdown-toggle img-fluid" height="50px" width="50px"
+                            href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false"></img>
+                        <div id="carrito" class="dropdown-menu" aria-labelledby="navbarCollapse">
+                            <table id="lista-carrito" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Imagen</th>
+                                        <th>Nombre</th>
+                                        <th>Precio</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+
+                            <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
+                            <a href="#" id="procesar-pedido" class="btn btn-danger btn-block">Procesar
+                                Compra</a>
+                        </div>
+                    </li>
+                </ul>
+
+                <form class="form-inline ml-auto">
+                    <input type="text" class="form-control mr-sm-2" placeholder="Escribe algo...">
+                    <button type="submit" class="btn btn-outline-light">Buscar</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <div class="hero-image">
+        <div class="hero-text">
+            <h1 style="font-size:50px">Adentrate en una nueva aventura</h1>
+            <h3>Todos los libros a $100</h3>
+        </div>
+    </div>
+
+    <main>
+
+        <div class="navbar navbar-dark bg-custom-2 px-3 py-3  mx-auto text-justify">
+            <div class="col-md-1 "></div>
+            <div class="col-md-1 "><img src="img/book.png"></div>
+            <div class="col-md-2 ">50, 000 Libros en stock</div>
+            <div class="col-md-1"></div>
+            <div class="col-md-1 ali"><img src="img/books-stack-of-three.png"></div>
+            <div class="col-md-2 ">Gran variedad de opciones</div>
+                <div class="col-md-1"></div>
+            <div class="col-md-1 "><img src="img/delivery.png"></div>
+            <div class="col-md-2 ">Envios a todo el pais</div>
+                <div class="col-md-1"></div>
+        </div>
+
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 my-4 mx-auto text-center">
+            <h1 class="display-4 mt-4">Libros a Domicilio</h1>
+            <p class="lead">Selecciona uno de los libros mas vendidos y accede a un descuento</p>
+        </div>
+
+        <div class="container" id="lista-productos">
+
+            <div class="card-deck mb-3 text-center">
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">Don Quijote de la Mancha</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="img/libro1.png" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">$<span class="">100</span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li></li>
+                            <li>Miguel de Cervantes</li>
+                            <li>500 millones de libros vendidos</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="1">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">Historia de dos ciudades</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="img/libro2.png" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">$<span class="">100</span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li></li>
+                            <li>Charles Dickens</li>
+                            <li>200 millones de libros vendidos</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="2">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">El Señor de los Anillos</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="img/libro3.png" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">$<span class="">100</span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li></li>
+                            <li>J.R.R. Tolkien</li>
+                            <li>150 millones de libros vendidos</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="3">Comprar</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-deck mb-3 text-center">
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">El Principito</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="img/libro4.jpg" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">$<span class="">100</span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li></li>
+                            <li>Antoine de Saint-Exupéry</li>
+                            <li>140 millones de libros vendidos</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="4">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">El Hobbit</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="img/libro5.jpg" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">$<span class="">100</span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li></li>
+                            <li>J.R.R. Tolkien</li>
+                            <li>100 millones de libros vendidos</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="5">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">Ella</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="img/libro6.jpg" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">$<span class="">100</span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li></li>
+                            <li>Henry Rider Haggard</li>
+                            <li>83 millones de libros vendidos</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="6">Comprar</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="card-deck mb-3 text-center">
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">El Código Da Vinci</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="img/libro7.jpg" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">$<span class="">100</span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li></li>
+                            <li>Dan Brown</li>
+                            <li>80 millones de libros vendidos</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="7">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">El Alquimista</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="img/libro8.jpg" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">$<span class="">100</span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li></li>
+                            <li>Paulo Coelho</li>
+                            <li>65 millones de libros vendidos</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="8">Comprar</a>
+                    </div>
+                </div>
+
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 font-weight-bold">El Camino a Cristo</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="img/libro9.jpg" class="card-img-top">
+                        <h1 class="card-title pricing-card-title precio">$<span class="">100</span></h1>
+
+                        <ul class="list-unstyled mt-3 mb-4">
+                            <li></li>
+                            <li>Ellen G. White</li>
+                            <li>60 millones de libros vendidos</li>
+                        </ul>
+                        <a href="" class="btn btn-block btn-primary agregar-carrito" data-id="9">Comprar</a>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </main>
+
+    <footer id="sticky-footer" class="py-4 bg-custom-2 text-white-50">
+        <div class="container text-center">
+            <small>Copyright &copy; DevJay</small>
+        </div>
+    </footer>
+
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/sweetalert2.min.js"></script>
+    <script src="js/carrito.js"></script>
+    <script src="js/pedido.js"></script>
+
+</body>
+
+</html>
