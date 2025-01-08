@@ -1,97 +1,83 @@
 const compra = new Carrito();
 const listaCompra = document.querySelector("#lista-compra tbody");
-const carrito = document.getElementById('carrito');
-const procesarCompraBtn = document.getElementById('procesar-compra');
-const cliente = document.getElementById('cliente');
-const correo = document.getElementById('correo');
-
+const carrito = document.getElementById("carrito");
+const procesarCompraBtn = document.getElementById("procesar-compra");
+const cliente = document.getElementById("cliente");
+const correo = document.getElementById("correo");
 
 cargarEventos();
 
 function cargarEventos() {
-    document.addEventListener('DOMContentLoaded', compra.leerLocalStorageCompra());
+    // Cargar datos del localStorage al cargar la página
+    document.addEventListener("DOMContentLoaded", () =>
+        compra.leerLocalStorageCompra()
+    );
 
-    //Eliminar productos del carrito
-    carrito.addEventListener('click', (e) => { compra.eliminarProducto(e) });
+    // Eliminar productos del carrito
+    carrito.addEventListener("click", (e) => compra.eliminarProducto(e));
 
+    // Calcular el total del carrito
     compra.calcularTotal();
 
-    //cuando se selecciona procesar Compra
-    procesarCompraBtn.addEventListener('click', procesarCompra);
+    // Procesar compra al hacer clic en el botón
+    procesarCompraBtn.addEventListener("click", procesarCompra);
 
-    carrito.addEventListener('change', (e) => { compra.obtenerEvento(e) });
-    carrito.addEventListener('keyup', (e) => { compra.obtenerEvento(e) });
-
-
+    // Unificar eventos para capturar cambios en el carrito
+    carrito.addEventListener("input", (e) => compra.obtenerEvento(e));
 }
 
-function procesarCompra() {
-    // e.preventDefault();
+function procesarCompra(e) {
+    e.preventDefault();
+
+    // Validar si hay productos en el carrito
     if (compra.obtenerProductosLocalStorage().length === 0) {
-        Swal.fire({
-            type: 'error',
-            title: 'Oops...',
-            text: 'No hay productos, selecciona alguno',
-            showConfirmButton: false,
-            timer: 2000
-        }).then(function () {
-            window.location = "index.html";
-        })
+        alert("No hay productos, selecciona algún libro...");
+        window.location = "index.html"; // Redirige inmediatamente
+        return;
     }
-    else if (cliente.value === '' || correo.value === '') {
-        Swal.fire({
-            type: 'error',
-            title: 'Oops...',
-            text: 'Ingrese todos los campos requeridos',
-            showConfirmButton: false,
-            timer: 2000
-        })
+
+    // Validar si los campos requeridos están completos
+    if (cliente.value.trim() === "" || correo.value.trim() === "") {
+        alert("Todos los campos son requeridos.");
+        return;
     }
-    else {
-        
-        //aqui se coloca el user id generado en el emailJS
-        (function(){
-            emailjs.init("user_oxOMlYeqIWqlNRe0uI4Qz");
-         })();
 
-        var myform = $("form#procesar-pago");
+    // Mostrar indicador de carga
+    const cargandoGif = document.querySelector("#cargando");
+    cargandoGif.style.display = "block";
 
-        myform.submit( (event) => {
-            event.preventDefault();
+    const enviado = document.createElement("img");
+    enviado.src = "img/mail.gif";
+    enviado.style.display = "block";
+    enviado.width = "150";
 
-            // Change to your service ID, or keep using the default service
-            var service_id = "default_service";
-            var template_id = "template_tPIjZtjG";
+    const clienteValue = cliente.value;
+    const emailValue = correo.value;
+    const clienteData = {clienteValue, emailValue};
 
-            const cargandoGif = document.querySelector('#cargando');
-            cargandoGif.style.display = 'block';
-
-            const enviado = document.createElement('img');
-            enviado.src = 'img/mail.gif';
-            enviado.style.display = 'block';
-            enviado.width = '150';
-
-            emailjs.sendForm(service_id, template_id, myform[0])
-                .then(() => {
-                    cargandoGif.style.display = 'none';
-                    document.querySelector('#loaders').appendChild(enviado);
-
-                    setTimeout(() => {
-                        compra.vaciarLocalStorage();
-                        enviado.remove();
-                        window.location = "index.html";
-                    }, 2000);
-
-
-                }, (err) => {
-                    alert("Error al enviar el email\r\n Response:\n " + JSON.stringify(err));
-                    // myform.find("button").text("Send");
-                });
-
-            return false;
-
-        });
-
-    }
+    enviarFormulario(cargandoGif, enviado, clienteData);
 }
 
+async function enviarFormulario(cargandoGif, enviado, clientData) {
+    const {clienteValue, emailValue} = clientData;
+
+    try {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
+        cargandoGif.style.display = "none";
+        document.querySelector("#loaders").appendChild(enviado);
+
+        alert(
+            `Se ha enviado un email de confirmacion a ${emailValue}, gracias por tu compra ${clienteValue}! Disfruta tu lectura :)`
+        );
+
+        setTimeout(() => {
+            // Vaciar el carrito y redirigir
+            compra.vaciarLocalStorage();
+            enviado.remove();
+            window.location = "index.html";
+        }, 1000);
+    } catch (err) {
+        alert("Error al enviar el email:\n" + JSON.stringify(err));
+    }
+}
