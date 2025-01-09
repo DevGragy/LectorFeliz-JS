@@ -85,7 +85,6 @@ async function enviarFormulario(cargandoGif, enviado, clientData) {
             text: `Se ha enviado un email de confirmacion a ${emailValue}, gracias por tu compra ${clienteValue}!`,
             showConfirmButton: true,
         }).then((result) => {
-                console.log('result', result);
                 if (result.value || result.dismiss) {
                     // Vaciar el carrito y redirigir
                     compra.vaciarLocalStorage();
