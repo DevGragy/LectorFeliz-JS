@@ -37,6 +37,13 @@ class Carrito {
             });
         } else {
             this.insertarCarrito(infoProducto);
+            Swal.fire({
+                type: "success",
+                title: "Libro añadido",
+                text: "Se agregó el libro al carrito",
+                showConfirmButton: false,
+                timer: 2000,
+            });
         }
     }
 
@@ -74,16 +81,36 @@ class Carrito {
     vaciarCarrito(e) {
         e.preventDefault();
 
-        const deseaVaciar = confirm(
-            "Desea vaciar el carrito? Se perderan todos sus productos..."
-        );
+        if (!listaProductos.firstChild) {
+            Swal.fire({
+                type: "error",
+                title: "Oops...",
+                text: "El carrito ya está vacio",
+                showConfirmButton: false,
+                timer: 2000,
+            });
+            
+            return
+        }
 
-        if (deseaVaciar) {
+        Swal.fire({
+            type: "info",
+            title: "Desea vaciar el carrito? ",
+            text: "Se perderan todos sus productos...",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Vaciar",
+            cancelButtonText: "Cancelar",
+        }).then((result) => {
+            if (!result.value) return
+
             while (listaProductos.firstChild) {
                 listaProductos.removeChild(listaProductos.firstChild);
             }
+
             this.vaciarLocalStorage();
-        }
+        });
     }
 
     //Almacenar en el LS

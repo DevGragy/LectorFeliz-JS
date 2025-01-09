@@ -31,14 +31,26 @@ function procesarCompra(e) {
 
     // Validar si hay productos en el carrito
     if (compra.obtenerProductosLocalStorage().length === 0) {
-        alert("No hay productos, selecciona algún libro...");
+        Swal.fire({
+            type: "error",
+            title: "No hay productos",
+            text: "Selecciona algún libro...",
+            showConfirmButton: false,
+            timer: 1000,
+        });
         window.location = "index.html"; // Redirige inmediatamente
         return;
     }
 
     // Validar si los campos requeridos están completos
     if (cliente.value.trim() === "" || correo.value.trim() === "") {
-        alert("Todos los campos son requeridos.");
+        Swal.fire({
+            type: "error",
+            title: "Llene los campos",
+            text: "Todos los campos son requeridos.",
+            showConfirmButton: false,
+            timer: 1000,
+        });
         return;
     }
 
@@ -62,22 +74,33 @@ async function enviarFormulario(cargandoGif, enviado, clientData) {
     const {clienteValue, emailValue} = clientData;
 
     try {
-        await new Promise((resolve) => setTimeout(resolve, 2000));
+        await new Promise((resolve) => setTimeout(resolve, 1500));
 
         cargandoGif.style.display = "none";
         document.querySelector("#loaders").appendChild(enviado);
 
-        alert(
-            `Se ha enviado un email de confirmacion a ${emailValue}, gracias por tu compra ${clienteValue}! Disfruta tu lectura :)`
-        );
-
-        setTimeout(() => {
-            // Vaciar el carrito y redirigir
-            compra.vaciarLocalStorage();
-            enviado.remove();
-            window.location = "index.html";
-        }, 1000);
+        Swal.fire({
+            type: "success",
+            title: "Gracias por tu compra",
+            text: `Se ha enviado un email de confirmacion a ${emailValue}, gracias por tu compra ${clienteValue}!`,
+            showConfirmButton: true,
+        }).then((result) => {
+                console.log('result', result);
+                if (result.value || result.dismiss) {
+                    // Vaciar el carrito y redirigir
+                    compra.vaciarLocalStorage();
+                    enviado.remove();
+                    window.location = "index.html";
+                }
+            }
+        )
     } catch (err) {
-        alert("Error al enviar el email:\n" + JSON.stringify(err));
+        Swal.fire({
+            type: "error",
+            title: "Hubo un error",
+            text: "Error al enviar el email:\n" + JSON.stringify(err),
+            showConfirmButton: false,
+            timer: 1000,
+        });
     }
 }
